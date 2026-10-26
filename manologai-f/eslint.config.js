@@ -15,7 +15,10 @@ globalIgnores(['dist']),
 
   languageOptions: {
     ecmaVersion: 2020,
-    globals: globals.browser,
+    globals: {
+      ...globals.browser,
+      ...globals.serviceworker
+    },
     parserOptions: {
       ecmaVersion: 'latest',
       ecmaFeatures: { jsx: true },
@@ -23,7 +26,8 @@ globalIgnores(['dist']),
     }
   },
   rules: {
-    'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }]
+    'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_' }],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
   }
 }]
 );

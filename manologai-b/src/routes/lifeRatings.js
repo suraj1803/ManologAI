@@ -88,10 +88,12 @@ function buildAveragePayload(entries, range) {
 
 
 function sanitizeRatings(body) {
+  const source =
+    body?.ratings && typeof body.ratings === "object" ? body.ratings : (body || {});
   const ratings = {};
   for (const field of RATING_FIELDS) {
-    if (body[field] !== undefined) {
-      const val = Number(body[field]);
+    if (source[field] !== undefined) {
+      const val = Number(source[field]);
       if (Number.isNaN(val) || val < 0 || val > 10) {
         return { error: `${field} must be a number between 0 and 10` };
       }

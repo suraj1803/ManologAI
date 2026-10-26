@@ -5,12 +5,22 @@ const auth = require("../middleware/auth");
 const User = require("../models/user");
 
 
-webpush.setVapidDetails(
-  process.env.VAPID_SUBJECT,
-  process.env.VAPID_PUBLIC_KEY,
-  process.env.VAPID_PRIVATE_KEY
-);
+if (process.env.VAPID_SUBJECT && process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+  try {
+    webpush.setVapidDetails(
+      process.env.VAPID_SUBJECT,
+      process.env.VAPID_PUBLIC_KEY,
+      process.env.VAPID_PRIVATE_KEY
+    );
+  } catch (err) {
+    console.error("Failed to initialize VAPID details in notifications route:", err);
+  }
+}
 
+
+router.get("/vapid-public-key", (req, res) => {
+  res.status(200).json({ publicKey: process.env.VAPID_PUBLIC_KEY || "" });
+});
 
 router.post("/subscribe", auth, async (req, res) => {
   try {

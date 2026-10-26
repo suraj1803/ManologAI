@@ -16,7 +16,9 @@ export function AuthProvider({ children }) {
         setUser(null);
       }
     } catch (err) {
-      console.error("Auth check failed:", err);
+      if (err.response?.status !== 401) {
+        console.error("Auth check failed:", err);
+      }
       setUser(null);
     } finally {
       setLoading(false);

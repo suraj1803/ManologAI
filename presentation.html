@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ManologAI - Project Presentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #0b0f19;
+    color: #f1f5f9;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .slide {
+    width: 16in;
+    height: 9in;
+    max-width: 16in;
+    max-height: 9in;
+    padding: 0.8in 1in 0.7in 1in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.08) 0%, transparent 40%),
+                #0b0f19;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Slide Header */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.25in;
+    margin-bottom: 0.35in;
+  }
+
+  .header-left .category {
+    font-size: 0.16in;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: #ec4899;
+    margin-bottom: 0.06in;
+  }
+
+  .header-left h2 {
+    font-size: 0.44in;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .header-right {
+    font-size: 0.16in;
+    font-weight: 600;
+    color: #94a3b8;
+    text-align: right;
+  }
+
+  /* Slide Content Area */
+  .slide-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Slide Footer */
+  .slide-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.2in;
+    font-size: 0.14in;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .slide-footer .uni-info {
+    color: #94a3b8;
+  }
+
+  .slide-footer .slide-num {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.04in 0.12in;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #cbd5e1;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4in;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.35in;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.28in;
+  }
+
+  /* Cards */
+  .card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.18in;
+    padding: 0.3in;
+    position: relative;
+  }
+
+  .card.highlight {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.05));
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  .card-title {
+    font-size: 0.22in;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.12in;
+    display: flex;
+    align-items: center;
+    gap: 0.12in;
+  }
+
+  .card-title .icon-pill {
+    width: 0.35in;
+    height: 0.35in;
+    border-radius: 0.08in;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.18in;
+  }
+
+  .card-body {
+    font-size: 0.17in;
+    line-height: 1.55;
+    color: #cbd5e1;
+  }
+
+  ul.bullet-list {
+    list-style: none;
+  }
+
+  ul.bullet-list li {
+    position: relative;
+    padding-left: 0.28in;
+    margin-bottom: 0.12in;
+    font-size: 0.17in;
+    line-height: 1.5;
+    color: #cbd5e1;
+  }
+
+  ul.bullet-list li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #ec4899;
+    font-weight: bold;
+    font-size: 0.2in;
+    line-height: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.04in 0.12in;
+    border-radius: 0.06in;
+    font-size: 0.13in;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+  .badge-pink { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+  .badge-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+  .badge-green { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+  /* Title Slide Specific */
+  .title-slide {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .title-badge {
+    display: inline-block;
+    padding: 0.08in 0.24in;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #818cf8;
+    font-size: 0.17in;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25in;
+  }
+
+  .main-title {
+    font-size: 0.76in;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.38in;
+    padding-bottom: 0.08in;
+  }
+
+  .subtitle {
+    font-size: 0.25in;
+    font-weight: 500;
+    color: #94a3b8;
+    max-width: 10.5in;
+    margin: 0 auto 0.5in auto;
+    line-height: 1.45;
+  }
+
+  .title-people-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 0.35in;
+    margin: 0 auto 0.28in auto;
+    text-align: left;
+    max-width: 12in;
+  }
+
+  .person-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.16in;
+    padding: 0.22in 0.28in;
+    position: relative;
+  }
+
+  .supervisor-card {
+    border-left: 3px solid #818cf8;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(255, 255, 255, 0.02));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .students-card {
+    border-left: 3px solid #ec4899;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(255, 255, 255, 0.02));
+  }
+
+  .role-badge {
+    font-size: 0.12in;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 0.06in;
+  }
+
+  .supervisor-card .person-name {
+    font-size: 0.22in;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.04in;
+  }
+
+  .supervisor-card .person-dept {
+    font-size: 0.14in;
+    color: #94a3b8;
+  }
+
+  .students-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08in;
+  }
+
+  .student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.06in 0.14in;
+    border-radius: 0.08in;
+  }
+
+  .student-name {
+    font-size: 0.16in;
+    font-weight: 600;
+    color: #f1f5f9;
+  }
+
+  .roll-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.13in;
+    font-weight: 600;
+    background: rgba(236, 72, 153, 0.15);
+    color: #f472b6;
+    padding: 0.02in 0.08in;
+    border-radius: 0.04in;
+    border: 1px solid rgba(236, 72, 153, 0.25);
+  }
+
+  .academic-strip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.18in;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    padding: 0.08in 0.28in;
+    font-size: 0.14in;
+    color: #cbd5e1;
+    margin: 0 auto;
+  }
+
+  .dot-sep {
+    color: #ec4899;
+    font-size: 0.18in;
+  }
+
+  /* Tag Cloud */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1in;
+    margin-top: 0.12in;
+  }
+
+  .tag {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.05in 0.14in;
+    border-radius: 0.06in;
+    font-size: 0.14in;
+    font-family: 'JetBrains Mono', monospace;
+    color: #e2e8f0;
+  }
+
+  .flow-box {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.12in;
+    padding: 0.18in;
+    text-align: center;
+  }
+
+  .flow-box .title {
+    font-weight: 700;
+    font-size: 0.18in;
+    color: #ffffff;
+    margin-bottom: 0.04in;
+  }
+
+  .flow-box .desc {
+    font-size: 0.13in;
+    color: #94a3b8;
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE SLIDE -->
+<div class="slide title-slide">
+  <div style="margin: auto 0; width: 100%; max-width: 12.8in;">
+    <div class="title-badge"> Minor Project Presentation | 7th Semester</div>
+    <h1 class="main-title">ManologAI</h1>
+    <p class="subtitle" style="margin-bottom: 0.32in;">A Unified Personal Life Analytics Platform & Behavioral Insight Engine</p>
+    
+    <div class="title-people-grid">
+      <!-- Supervisor Card -->
+      <div class="person-card supervisor-card">
+        <div class="role-badge">Project Supervisor</div>
+        <div class="person-name">Dr. Amit Kumar Khaskalam</div>
+        <div class="person-dept">Department of Information Technology</div>
+      </div>
+
+      <!-- Students Card -->
+      <div class="person-card students-card">
+        <div class="role-badge">Submitted By (Students)</div>
+        <div class="students-list">
+          <div class="student-item">
+            <span class="student-name">1. Brijesh Kumar</span>
+            <span class="roll-badge">23036115</span>
+          </div>
+          <div class="student-item">
+            <span class="student-name">2. Narendra</span>
+            <span class="roll-badge">23036134</span>
+          </div>
+          <div class="student-item">
+            <span class="student-name">3. Suraj Biswas</span>
+            <span class="roll-badge">23036168</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academic Metadata Pill -->
+    <div class="academic-strip">
+      <span><strong>Guru Ghasidas Vishwavidyalaya</strong>, Bilaspur (C.G.)</span>
+      <span class="dot-sep">•</span>
+      <span>B.Tech (Information Technology)</span>
+      <span class="dot-sep">•</span>
+      <span>Session 2026 – 2027</span>
+    </div>
+  </div>
+
+  <div class="slide-footer" style="width: 100%;">
+    <div class="uni-info">Department of Information Technology, School of Studies in Engineering & Technology</div>
+    <div class="slide-num">Slide 1 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 2: PROBLEM STATEMENT & MOTIVATION -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">Background & Motivation</div>
+      <h2>The Problem: The Fragmented Quantified-Self</h2>
+    </div>
+    <div class="header-right">B.Tech IT (Sem VII)</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card highlight">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">⚠️</span>
+          Current Industry Challenges
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Siloed Life Data:</strong> Users record habits in one app, journals in Notion, mood in Daylio, and sleep in health trackers without interoperability.</li>
+          <li><strong>Zero Cross-Domain Correlation:</strong> Isolated apps cannot answer critical lifestyle questions: <em>"How does sleeping under 6.5 hours impact my daytime stress and work output?"</em></li>
+          <li><strong>Absence of Data Integrity:</strong> Most self-tracking apps permit retroactive editing, leading to cognitive bias and inflated streaks.</li>
+          <li><strong>High Logging Friction:</strong> Dispersed workflows cause user burnout within 2–3 weeks.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">🎯</span>
+          Project Objectives
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Unified Behavioral Intelligence:</strong> Merge qualitative journaling with quantitative time, expense, and habit tracking in a single ecosystem.</li>
+          <li><strong>Personal Data Scientist:</strong> Implement statistical algorithms to expose hidden correlations between sleep, screen time, habits, and emotional state.</li>
+          <li><strong>Integrity Enforcement:</strong> Implement an immutable 24-hour write lock to prevent retroactive revisionism.</li>
+          <li><strong>Frictionless UX:</strong> Native Progressive Web App (PWA) with VAPID web push reminders under a sub-2-minute daily routine.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 2 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 3: SYSTEM MODULES -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">Core Capabilities</div>
+      <h2>Functional Modules & System Features</h2>
+    </div>
+    <div class="header-right">System Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">📖</span>
+          Daily Journal & Mood
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Single entry per day with auto-save and calendar navigation.</li>
+            <li>Tagging system & day rating (0–10).</li>
+            <li>Emotion logger mapping daily sentiments for longitudinal tracking.</li>
+            <li>Client-side encrypted PDF export.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(236, 72, 153, 0.2); color: #f472b6;">⏱️</span>
+          Time & Habits Engine
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Rapid logging: Sleep, Screen Time, Work/Study hours, and Expenses.</li>
+            <li>Sum integrity validation (Daily hours ≤ 24).</li>
+            <li>Flexible habit schedules (Daily, Weekly, Custom Day intervals).</li>
+            <li>GitHub-style contribution heatmaps.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">⚖️</span>
+          Wheel of Life & Planner
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Evaluates 8 life dimensions (Health, Career, Finance, Relationships, etc.).</li>
+            <li>Structured Pads for Goals, Books, Ideas, and To-Dos.</li>
+            <li>Weekly timetable creator with real-time overlap & conflict detection.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 3 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 4: ARCHITECTURE -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">System Engineering</div>
+      <h2>Full-Stack System Architecture</h2>
+    </div>
+    <div class="header-right">High-Level Design</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-4" style="margin-bottom: 0.35in;">
+      <div class="flow-box">
+        <span class="badge badge-purple" style="margin-bottom: 0.08in;">Presentation Tier</span>
+        <div class="title">React 19 PWA</div>
+        <div class="desc">Vite 8, Tailwind v4, Recharts, Framer Motion, Service Worker</div>
+      </div>
+      <div class="flow-box">
+        <span class="badge badge-pink" style="margin-bottom: 0.08in;">Security & Proxy</span>
+        <div class="title">Gateway / Middleware</div>
+        <div class="desc">Vite Proxy, Dual JWT verification, HTTP-only Cookie rotation</div>
+      </div>
+      <div class="flow-box">
+        <span class="badge badge-blue" style="margin-bottom: 0.08in;">Application Tier</span>
+        <div class="title">Express 5 REST API</div>
+        <div class="desc">Domain routers, Statistical analytics engine, Push scheduler</div>
+      </div>
+      <div class="flow-box">
+        <span class="badge badge-green" style="margin-bottom: 0.08in;">Data Tier</span>
+        <div class="title">MongoDB & Cloudinary</div>
+        <div class="desc">Compound index schemas, Multi-device sessions, Media assets</div>
+      </div>
+    </div>
+
+    <div class="card highlight">
+      <div class="card-title">Architectural Principles & Pipeline</div>
+      <div class="grid-2" style="gap: 0.3in;">
+        <ul class="bullet-list">
+          <li><strong>Decoupled Micro-layering:</strong> Client-side rendering backed by stateless REST endpoints ensuring fast Time-To-Interactive (TTI).</li>
+          <li><strong>Compound Constraints:</strong> Database models enforce <code>{ user: 1, date: 1 }</code> unique compound indices to eliminate race conditions and duplicates.</li>
+        </ul>
+        <ul class="bullet-list">
+          <li><strong>Proactive Push Scheduler:</strong> Node.js background worker executes 60s cron evaluation with automatic dead-subscription purging (HTTP 410).</li>
+          <li><strong>Dual-Layer Fallback:</strong> Seamless handoff between OS Web Push and in-browser Notification API.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 4 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 5: KEY TECHNICAL INNOVATIONS -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">Technical Innovations</div>
+      <h2>Key Technical Innovations & Engineering Highlights</h2>
+    </div>
+    <div class="header-right">Core Innovations</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔒</span>
+          24-Hour Integrity Lock Engine
+        </div>
+        <div class="card-body">
+          <p style="margin-bottom: 0.1in;">Behavioral self-reports suffer when users falsify history retroactively.</p>
+          <ul class="bullet-list">
+            <li>All diary, emotion, and time tracking entries enforce a strict temporal lock threshold (24 hours).</li>
+            <li>Future date submissions are strictly rejected at the API middleware level.</li>
+            <li>Guarantees pristine, unpolluted datasets for meaningful statistical analytics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🧠</span>
+          Cross-Domain Correlation Engine
+        </div>
+        <div class="card-body">
+          <p style="margin-bottom: 0.1in;">Transforms raw, disparate inputs into actionable personal intelligence.</p>
+          <ul class="bullet-list">
+            <li>Computes multi-dimensional Pearson correlation matrices (e.g., Sleep Duration vs. Emotional Well-being).</li>
+            <li>Identifies day-of-week drop-off anomalies (e.g., weekend habit completion drop rates).</li>
+            <li>Renders multidimensional radar charts visualizing life balance symmetries.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">🛡️</span>
+          Robust Session & Token Rotation
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Dual-token architecture: Short-lived access token (15 min) + Refresh token (7 days).</li>
+            <li>Stored in <code>httpOnly</code>, <code>SameSite: Lax</code> cookies preventing XSS-based token theft.</li>
+            <li>Automatic token rotation with token reuse detection and multi-device session pruning.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(236, 72, 153, 0.2); color: #f472b6;">🔔</span>
+          VAPID Web Push & Mobile PWA
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Voluntary Application Server Identification (VAPID) push messaging without proprietary SDKs.</li>
+            <li>Progressive Web App (PWA) with installable standalone manifestation and custom splash screen.</li>
+            <li>Service Worker precaching of critical runtime chunks for offline continuity.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 5 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 6: TECH STACK -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">Implementation Details</div>
+      <h2>Technology Stack & Tooling</h2>
+    </div>
+    <div class="header-right">Tech Stack</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">💻</span>
+          Frontend Stack
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><strong>React 19:</strong> Latest React runtime leveraging modern hooks and component patterns.</li>
+            <li><strong>Tailwind CSS v4:</strong> Next-gen CSS engine with optimized build pipelines.</li>
+            <li><strong>Vite 8:</strong> High-performance ES-module build & HMR tool.</li>
+            <li><strong>Recharts v3:</strong> Dynamic SVG visualizations (Radar, Area, Bar, Scatter).</li>
+            <li><strong>Framer Motion:</strong> Smooth physics-based UI transitions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">⚙️</span>
+          Backend Stack
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><strong>Node.js & Express 5:</strong> Scalable, async RESTful API framework.</li>
+            <li><strong>Mongoose 9.3:</strong> Object Data Modeling with schema validation and pre-save hooks.</li>
+            <li><strong>JWT & Bcrypt:</strong> Industry-standard cryptographic auth and salt hashing.</li>
+            <li><strong>Web-Push:</strong> Direct implementation of RFC 8291/8292 VAPID push protocol.</li>
+            <li><strong>Multer & Cloudinary:</strong> Multipart media pipeline for profile imagery.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🗄️</span>
+          Database & Delivery
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><strong>MongoDB:</strong> Document datastore supporting flexible, schema-driven analytics.</li>
+            <li><strong>Vite PWA / Workbox:</strong> Service worker caching strategies & manifest delivery.</li>
+            <li><strong>VAPID Protocol:</strong> Native browser push notification gateway.</li>
+            <li><strong>jsPDF:</strong> In-browser document synthesis for instant PDF reporting.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 6 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 7: RESULTS & VERIFICATION -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">System Verification</div>
+      <h2>Demonstration & Test Results</h2>
+    </div>
+    <div class="header-right">Testing & Quality</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card highlight">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">✅</span>
+          End-to-End Automated Test Suite
+        </div>
+        <div class="card-body">
+          <p style="margin-bottom: 0.12in; font-weight: 600; color: #10b981;">16 / 16 Integration Test Scenarios Passed (100% Success Rate)</p>
+          <ul class="bullet-list">
+            <li><strong>Authentication & Profile:</strong> Verified user registration, token cookie issuance, and profile retrieval.</li>
+            <li><strong>Logging Engine:</strong> Successfully logged daily diary, emotions, time tracking, life ratings, and habits.</li>
+            <li><strong>Conflict Resolution:</strong> Verified timetable schedule block conflict detection.</li>
+            <li><strong>Push Notifications:</strong> Tested VAPID subscription endpoints and background scheduler.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">📊</span>
+          Functional Highlights
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><strong>Gamified Habit Badging:</strong> Tiered milestones (Bronze I/II, Silver I/II, Gold, Diamond) incentivize user persistence.</li>
+            <li><strong>Responsive Ergonomics:</strong> Unified layout rendering desktop sidebar alongside an adaptive mobile tab bar.</li>
+            <li><strong>Zero Console Defects:</strong> Production build validated cleanly with 0 ESLint errors and 0 runtime browser warnings.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 7 / 8</div>
+  </div>
+</div>
+
+<!-- SLIDE 8: CONCLUSION & FUTURE SCOPE -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="header-left">
+      <div class="category">Conclusion</div>
+      <h2>Project Summary & Future Roadmap</h2>
+    </div>
+    <div class="header-right">Project Conclusion</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="grid-2" style="margin-bottom: 0.3in;">
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">📌</span>
+          Conclusion
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li>Successfully built and deployed <strong>ManologAI</strong>, bridging the gap between subjective reflections and quantitative behavioral metrics.</li>
+            <li>Validated that a single, unified data model eliminates self-tracking friction and unlocks deep correlation insights.</li>
+            <li>Proved the efficacy of the 24-hour integrity lock for maintaining clean personal data science datasets.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="icon-pill" style="background: rgba(236, 72, 153, 0.2); color: #f472b6;">🚀</span>
+          Future Scope
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list">
+            <li><strong>Local LLM Integration:</strong> Integrate privacy-first on-device AI for automated weekly reflection summaries and proactive lifestyle nudges.</li>
+            <li><strong>Wearables API Sync:</strong> Integrate Google Health Connect and Apple HealthKit for automated passive sleep and workout logging.</li>
+            <li><strong>CRDT Offline Sync:</strong> Implement Conflict-free Replicated Data Types for peer-to-peer multi-device synchronization.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: 0.18in 0.3in; background: rgba(255, 255, 255, 0.02); border-radius: 0.12in; border: 1px dashed rgba(255, 255, 255, 0.1);">
+      <h3 style="font-size: 0.26in; font-weight: 800; color: #ffffff; margin-bottom: 0.05in;">Thank You</h3>
+      <p style="font-size: 0.14in; color: #cbd5e1; margin-bottom: 0.03in;">Project Supervisor: <strong>Dr. Amit Kumar Khaskalam</strong></p>
+      <p style="font-size: 0.13in; color: #94a3b8;">Students: Brijesh Kumar (23036115) • Narendra (23036134) • Suraj Biswas (23036168)</p>
+      <p style="font-size: 0.12in; color: #64748b; margin-top: 0.03in;">Department of Information Technology | Guru Ghasidas Vishwavidyalaya, Bilaspur (C.G.)</p>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 8 / 8</div>
+  </div>
+</div>
+
+</body>
+</html>

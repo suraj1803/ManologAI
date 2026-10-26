@@ -55,7 +55,8 @@ import { api, getApiErrorMessage } from "../lib/api";
 import { COUNTRIES } from "../lib/constants";
 import {
   showNotification,
-  requestNotificationPermission } from
+  requestNotificationPermission,
+  subscribeUserToPush } from
 "../lib/NotificationService";
 import MobileTabBar from "../components/MobileTabBar";
 
@@ -1853,8 +1854,8 @@ export default function ProfilePage() {
           setIsDeletingAccount(true);
           try {
             await api.delete("/profile/me");
-          } catch (_) {
-
+          } catch (deleteError) {
+            console.error("Account deletion error:", deleteError);
           }
           logout();
           navigate("/login", { replace: true });

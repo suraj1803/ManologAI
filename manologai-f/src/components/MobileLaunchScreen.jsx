@@ -5,7 +5,7 @@ const DISPLAY_MS = 2400;
 
 export default function MobileLaunchScreen() {
   const [isMobile, setIsMobile] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
@@ -27,8 +27,6 @@ export default function MobileLaunchScreen() {
 
     const params = new URLSearchParams(window.location.search);
     const forcePreview = params.has("launch-preview");
-
-    setIsVisible(true);
 
     if (forcePreview) return;
 

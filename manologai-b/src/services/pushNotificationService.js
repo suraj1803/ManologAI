@@ -2,11 +2,19 @@ const webpush = require("web-push");
 const User = require("../models/user");
 
 
-webpush.setVapidDetails(
-  process.env.VAPID_SUBJECT,
-  process.env.VAPID_PUBLIC_KEY,
-  process.env.VAPID_PRIVATE_KEY
-);
+if (process.env.VAPID_SUBJECT && process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+  try {
+    webpush.setVapidDetails(
+      process.env.VAPID_SUBJECT,
+      process.env.VAPID_PUBLIC_KEY,
+      process.env.VAPID_PRIVATE_KEY
+    );
+  } catch (err) {
+    console.error("Failed to initialize VAPID details in pushNotificationService:", err);
+  }
+} else {
+  console.warn("VAPID keys not configured in pushNotificationService; web push will be inactive.");
+}
 
 const sendPushNotification = async (subscription, payload) => {
   try {

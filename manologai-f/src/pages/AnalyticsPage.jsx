@@ -1204,7 +1204,7 @@ export default function AnalyticsPage() {
                     {moodBarLoading ?
                     <ChartSkeleton /> :
                     moodBarData.length > 0 ?
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                         <BarChart data={moodBarData}>
                           <CartesianGrid
                           strokeDasharray="3 3"
@@ -1297,7 +1297,7 @@ export default function AnalyticsPage() {
                     {moodLineLoading ?
                     <ChartSkeleton /> :
                     moodLineData.length > 0 ?
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                         <LineChart data={moodLineData}>
                           <CartesianGrid
                           strokeDasharray="3 3"
@@ -1397,7 +1397,7 @@ export default function AnalyticsPage() {
                     {moodPieLoading ?
                     <ChartSkeleton /> :
                     emotionDistribution.length > 0 ?
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                         <PieChart>
                           <Tooltip
                           contentStyle={{
@@ -1475,7 +1475,7 @@ export default function AnalyticsPage() {
                     {lifeLoading ?
                     <ChartSkeleton /> :
                     lifeData.length > 0 ?
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                         <RadarChart
                         cx="50%"
                         cy="50%"
@@ -1602,7 +1602,7 @@ export default function AnalyticsPage() {
                       {sleepEmotionLoading ?
                       <ChartSkeleton /> :
                       insightPlotData.length > 0 ?
-                      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                           {sleepEmotionView === "scatter" ?
                         <ScatterChart
                           margin={{
@@ -1774,7 +1774,7 @@ export default function AnalyticsPage() {
                       {dayEmotionLoading ?
                       <ChartSkeleton /> :
                       dayEmotionData.length > 0 ?
-                      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                           <BarChart data={dayEmotionData}>
                             <CartesianGrid
                             strokeDasharray="3 3"
@@ -1882,7 +1882,7 @@ export default function AnalyticsPage() {
                       {habitImpactLoading ?
                       <ChartSkeleton /> :
                       habitImpactTop.length > 0 ?
-                      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                           <BarChart data={habitImpactTop} layout="vertical">
                             <CartesianGrid
                             strokeDasharray="3 3"
@@ -1988,7 +1988,7 @@ export default function AnalyticsPage() {
                     {timeLoading ?
                     <ChartSkeleton /> :
                     timeData.length > 0 ?
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                         <LineChart
                         data={timeData}
                         margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
@@ -2098,7 +2098,7 @@ export default function AnalyticsPage() {
                     {expenseLoading ?
                     <ChartSkeleton /> :
                     expenseData.length > 0 ?
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 400, height: 300 }}>
                         <LineChart
                         data={expenseData}
                         margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>

@@ -1,7 +1,10 @@
 import { api } from "./api";
 
 const NOTIFICATION_ICON = "/logo.png";
-const VAPID_PUBLIC_KEY = "BCtUqMA5nvCbkYA61vMf8OakEptRY58KeH6rckI0s3o75RFQjwCTpwiX_YKFkuj513Oa4lCsGzFs1GVko6qWpO4";
+const DEFAULT_VAPID_PUBLIC_KEY =
+  "BHhCpbsvqOX-o5RsQoKbIHwWlXTbGuRPK1gYoZuHRkz1ipfT-ArLZ5l5bQxpGYcqE_O3YVcbYYycZu4TNuLbqJY";
+const VAPID_PUBLIC_KEY =
+  import.meta.env.VITE_VAPID_PUBLIC_KEY || DEFAULT_VAPID_PUBLIC_KEY;
 
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - base64String.length % 4) % 4);

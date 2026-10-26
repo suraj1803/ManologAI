@@ -202,6 +202,21 @@ router.patch("/:date", auth, async (req, res) => {
   }
 });
 
+router.get("/", auth, async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const limit = Math.max(1, Math.min(Number(req.query.limit) || 30, MAX_RANGE_LIMIT));
+    const entries = await Emotion.find({ user: userId })
+      .select("date emotion")
+      .sort({ date: -1 })
+      .limit(limit);
+    return res.status(200).json({ emotions: entries });
+  } catch (err) {
+    console.error("GET /emotions error:", err);
+    return res.status(500).json({ error: "Failed to fetch emotions" });
+  }
+});
+
 router.get("/today", auth, async (req, res) => {
   try {
     const userId = req.user._id;
