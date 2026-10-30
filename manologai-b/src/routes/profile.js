@@ -6,6 +6,7 @@ const auth = require("../middleware/auth");
 const User = require("../models/user");
 const cloudinary = require("../config/cloudinary");
 const { getCurrencyForCountry } = require("../config/currency");
+const { seedUserData } = require("../services/seedDataService");
 
 const router = express.Router();
 const upload = multer({
@@ -272,6 +273,24 @@ router.post("/reset-password", auth, async (req, res) => {
   } catch (error) {
     console.error("Reset password error:", error);
     return res.status(500).json({ error: "Password reset failed" });
+  }
+});
+
+router.post("/seed-sample-data", auth, async (req, res) => {
+  try {
+    const userId = req.user?._id;
+    if (!userId) {
+      return res.status(401).json({ error: "Please login first" });
+    }
+
+    const result = await seedUserData(userId, { force: true });
+    return res.status(200).json({
+      message: "Sample default data populated successfully",
+      details: result
+    });
+  } catch (error) {
+    console.error("POST /profile/seed-sample-data error:", error);
+    return res.status(500).json({ error: "Failed to populate sample data" });
   }
 });
 

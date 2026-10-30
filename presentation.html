@@ -381,9 +381,143 @@
     margin-bottom: 0.04in;
   }
 
-  .flow-box .desc {
-    font-size: 0.13in;
+  /* Architecture Diagram & Dataflow Pipeline */
+  .arch-pipeline {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0.12in;
+    margin-bottom: 0.26in;
+  }
+
+  .arch-node {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.14in;
+    padding: 0.16in 0.18in;
+    position: relative;
+    backdrop-filter: blur(8px);
+  }
+
+  .arch-node.client-node { border-top: 3px solid #818cf8; background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, rgba(15, 23, 42, 0.75) 100%); }
+  .arch-node.gateway-node { border-top: 3px solid #ec4899; background: linear-gradient(180deg, rgba(236, 72, 153, 0.1) 0%, rgba(15, 23, 42, 0.75) 100%); }
+  .arch-node.engine-node { border-top: 3px solid #38bdf8; background: linear-gradient(180deg, rgba(56, 189, 248, 0.1) 0%, rgba(15, 23, 42, 0.75) 100%); }
+  .arch-node.data-node { border-top: 3px solid #34d399; background: linear-gradient(180deg, rgba(52, 211, 153, 0.1) 0%, rgba(15, 23, 42, 0.75) 100%); }
+
+  .arch-node .node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.1in;
+  }
+
+  .arch-node .node-title {
+    font-size: 0.165in;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .arch-node ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .arch-node li {
+    font-size: 0.125in;
+    color: #cbd5e1;
+    line-height: 1.45;
+    margin-bottom: 0.05in;
+    position: relative;
+    padding-left: 0.16in;
+  }
+
+  .arch-node li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
     color: #94a3b8;
+    font-size: 0.16in;
+    line-height: 1;
+  }
+
+  .arch-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #818cf8;
+    font-size: 0.22in;
+    padding: 0 0.02in;
+    flex-shrink: 0;
+  }
+
+  .arch-arrow .arrow-label {
+    font-size: 0.09in;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-top: 0.04in;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.02in 0.06in;
+    border-radius: 0.04in;
+    white-space: nowrap;
+  }
+
+  .dataflow-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.14in;
+    padding: 0.18in 0.22in;
+    position: relative;
+  }
+
+  .dataflow-card .df-title {
+    font-size: 0.16in;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.12in;
+    display: flex;
+    align-items: center;
+    gap: 0.08in;
+  }
+
+  .dataflow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08in;
+  }
+
+  .dataflow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.1in;
+    font-size: 0.128in;
+    line-height: 1.4;
+    color: #94a3b8;
+  }
+
+  .dataflow-step strong {
+    color: #f1f5f9;
+  }
+
+  .step-num {
+    background: rgba(236, 72, 153, 0.15);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    color: #f472b6;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.11in;
+    font-weight: 700;
+    border-radius: 999px;
+    width: 0.22in;
+    height: 0.22in;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.02in;
   }
 </style>
 </head>
@@ -392,7 +526,7 @@
 <!-- SLIDE 1: TITLE SLIDE -->
 <div class="slide title-slide">
   <div style="margin: auto 0; width: 100%; max-width: 12.8in;">
-    <div class="title-badge"> Minor Project Presentation | 7th Semester</div>
+    <div class="title-badge">Project Presentation | 7th Semester</div>
     <h1 class="main-title">ManologAI</h1>
     <p class="subtitle" style="margin-bottom: 0.32in;">A Unified Personal Life Analytics Platform & Behavioral Insight Engine</p>
     
@@ -436,7 +570,7 @@
 
   <div class="slide-footer" style="width: 100%;">
     <div class="uni-info">Department of Information Technology, School of Studies in Engineering & Technology</div>
-    <div class="slide-num">Slide 1 / 8</div>
+    <div class="slide-num">Slide 1 / 9</div>
   </div>
 </div>
 
@@ -482,7 +616,7 @@
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 2 / 8</div>
+    <div class="slide-num">Slide 2 / 9</div>
   </div>
 </div>
 
@@ -546,7 +680,7 @@
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 3 / 8</div>
+    <div class="slide-num">Slide 3 / 9</div>
   </div>
 </div>
 
@@ -601,13 +735,167 @@
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 4 / 8</div>
+    <div class="slide-num">Slide 4 / 9</div>
   </div>
 </div>
 
-<!-- SLIDE 5: KEY TECHNICAL INNOVATIONS -->
+<!-- SLIDE 5: SYSTEM ARCHITECTURE & DATAFLOW PIPELINE -->
 <div class="slide">
-  <div class="slide-header">
+  <div class="slide-header" style="margin-bottom: 0.22in; padding-bottom: 0.18in;">
+    <div class="header-left">
+      <div class="category">System Architecture & Dataflow</div>
+      <h2>End-to-End Architecture Diagram & Dataflow Pipeline</h2>
+    </div>
+    <div class="header-right">Dataflow & Pipeline</div>
+  </div>
+
+  <div class="slide-body">
+    <!-- Top: 4-Tier Interactive Architecture Flow -->
+    <div class="arch-pipeline">
+      <!-- Node 1: Client Layer -->
+      <div class="arch-node client-node">
+        <div class="node-header">
+          <span class="node-title">1. Client Layer</span>
+          <span class="badge badge-purple">PWA</span>
+        </div>
+        <ul>
+          <li><strong>React 19 &amp; Vite 8:</strong> Reactive UI &amp; state stores</li>
+          <li><strong>PWA Service Worker:</strong> Cache runtime &amp; background sync</li>
+          <li><strong>VAPID Push Listener:</strong> Subscribes via PushManager</li>
+        </ul>
+      </div>
+
+      <div class="arch-arrow">
+        <span>➔</span>
+        <span class="arrow-label">HTTPS / Cookie</span>
+      </div>
+
+      <!-- Node 2: Gateway & Security -->
+      <div class="arch-node gateway-node">
+        <div class="node-header">
+          <span class="node-title">2. Ingestion Gateway</span>
+          <span class="badge badge-pink">Security</span>
+        </div>
+        <ul>
+          <li><strong>Reverse Proxy:</strong> Route dispatching &amp; CORS</li>
+          <li><strong>Dual JWT Auth:</strong> HttpOnly cookie token rotation</li>
+          <li><strong>24-Hour Guard:</strong> Temporal write-lock validation</li>
+        </ul>
+      </div>
+
+      <div class="arch-arrow">
+        <span>➔</span>
+        <span class="arrow-label">Sanitized Req</span>
+      </div>
+
+      <!-- Node 3: Express Intelligence Tier -->
+      <div class="arch-node engine-node">
+        <div class="node-header">
+          <span class="node-title">3. Analytics &amp; Services</span>
+          <span class="badge badge-blue">Express 5</span>
+        </div>
+        <ul>
+          <li><strong>Domain Routers:</strong> Diary, Habits, Time, Emotions</li>
+          <li><strong>Correlation Engine:</strong> Pearson <em>(r)</em> &amp; Habit Deltas (&Delta;)</li>
+          <li><strong>Web Push Daemon:</strong> 60s cron evaluation &amp; dispatch</li>
+        </ul>
+      </div>
+
+      <div class="arch-arrow">
+        <span>➔</span>
+        <span class="arrow-label">Mongoose ODM</span>
+      </div>
+
+      <!-- Node 4: Persistence Tier -->
+      <div class="arch-node data-node">
+        <div class="node-header">
+          <span class="node-title">4. Persistence Tier</span>
+          <span class="badge badge-green">Storage</span>
+        </div>
+        <ul>
+          <li><strong>MongoDB:</strong> Compound key <code>{ user: 1, date: 1 }</code></li>
+          <li><strong>State Collections:</strong> Entries, Emotions, Ratings, Habits</li>
+          <li><strong>Cloudinary:</strong> CDN profile asset hosting</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom: 3 Core Dataflow Lifecycles -->
+    <div class="grid-3" style="gap: 0.22in;">
+      <div class="dataflow-card">
+        <div class="df-title">
+          <span class="icon-pill" style="width: 0.28in; height: 0.28in; background: rgba(99, 102, 241, 0.2); color: #818cf8; font-size: 0.14in;">📝</span>
+          Log Ingestion &amp; Integrity Flow
+        </div>
+        <div class="dataflow-steps">
+          <div class="dataflow-step">
+            <span class="step-num">1</span>
+            <div><strong>User Submission:</strong> User submits daily diary, emotion, habit, or time allocation entry.</div>
+          </div>
+          <div class="dataflow-step">
+            <span class="step-num">2</span>
+            <div><strong>Integrity Check:</strong> Middleware validates entry date &le; current day and within 24h editing window.</div>
+          </div>
+          <div class="dataflow-step">
+            <span class="step-num">3</span>
+            <div><strong>Atomic Upsert:</strong> MongoDB updates record matching <code>{ user, date }</code> with zero duplicate risk.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dataflow-card">
+        <div class="df-title">
+          <span class="icon-pill" style="width: 0.28in; height: 0.28in; background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 0.14in;">📊</span>
+          Behavioral Analytics Flow
+        </div>
+        <div class="dataflow-steps">
+          <div class="dataflow-step">
+            <span class="step-num">1</span>
+            <div><strong>Query Window:</strong> Client requests 7/30/90-day time-series and habit history over REST.</div>
+          </div>
+          <div class="dataflow-step">
+            <span class="step-num">2</span>
+            <div><strong>Quantization &amp; Math:</strong> Engine computes Pearson correlation coefficient <em>(r)</em> and habit delta &Delta;.</div>
+          </div>
+          <div class="dataflow-step">
+            <span class="step-num">3</span>
+            <div><strong>Visualization:</strong> Recharts renders reactive scatter plots, radar charts, and trend lines.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dataflow-card">
+        <div class="df-title">
+          <span class="icon-pill" style="width: 0.28in; height: 0.28in; background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 0.14in;">🔔</span>
+          VAPID Push Notification Flow
+        </div>
+        <div class="dataflow-steps">
+          <div class="dataflow-step">
+            <span class="step-num">1</span>
+            <div><strong>Subscription Handshake:</strong> Browser generates endpoint &amp; auth keys via VAPID Public Key.</div>
+          </div>
+          <div class="dataflow-step">
+            <span class="step-num">2</span>
+            <div><strong>Scheduler Match:</strong> Backend 60s cron detects due reminders (Daily Log, Habits, Check-in).</div>
+          </div>
+          <div class="dataflow-step">
+            <span class="step-num">3</span>
+            <div><strong>Payload Delivery:</strong> Web-Push RFC 8291 payload awakens Service Worker on device lockscreen.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
+    <div class="slide-num">Slide 5 / 9</div>
+  </div>
+</div>
+
+<!-- SLIDE 6: KEY TECHNICAL INNOVATIONS -->
+<div class="slide">
+  <div class="slide-header" style="margin-bottom: 0.25in; padding-bottom: 0.2in;">
     <div class="header-left">
       <div class="category">Technical Innovations</div>
       <h2>Key Technical Innovations & Engineering Highlights</h2>
@@ -616,61 +904,59 @@
   </div>
 
   <div class="slide-body">
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">
-          <span class="icon-pill" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔒</span>
+    <div class="grid-2" style="gap: 0.22in;">
+      <div class="card" style="padding: 0.22in 0.26in;">
+        <div class="card-title" style="margin-bottom: 0.08in; font-size: 0.2in;">
+          <span class="icon-pill" style="width: 0.3in; height: 0.3in; background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔒</span>
           24-Hour Integrity Lock Engine
         </div>
-        <div class="card-body">
-          <p style="margin-bottom: 0.1in;">Behavioral self-reports suffer when users falsify history retroactively.</p>
+        <div class="card-body" style="font-size: 0.155in;">
           <ul class="bullet-list">
-            <li>All diary, emotion, and time tracking entries enforce a strict temporal lock threshold (24 hours).</li>
-            <li>Future date submissions are strictly rejected at the API middleware level.</li>
-            <li>Guarantees pristine, unpolluted datasets for meaningful statistical analytics.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Strict Temporal Lock:</strong> Diary, emotion, and time logs enforce an immutable 24-hour write lock to prevent revisionist bias.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Middleware Guard:</strong> Future-dated entries and retroactive updates are blocked at the Express API layer.</li>
+            <li style="margin-bottom: 0.02in;"><strong>Dataset Fidelity:</strong> Guarantees unpolluted, realistic behavioral logs essential for reliable statistical inference.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">
-          <span class="icon-pill" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🧠</span>
+      <div class="card" style="padding: 0.22in 0.26in;">
+        <div class="card-title" style="margin-bottom: 0.08in; font-size: 0.2in;">
+          <span class="icon-pill" style="width: 0.3in; height: 0.3in; background: rgba(168, 85, 247, 0.2); color: #c084fc;">🧠</span>
           Cross-Domain Correlation Engine
         </div>
-        <div class="card-body">
-          <p style="margin-bottom: 0.1in;">Transforms raw, disparate inputs into actionable personal intelligence.</p>
+        <div class="card-body" style="font-size: 0.155in;">
           <ul class="bullet-list">
-            <li>Computes multi-dimensional Pearson correlation matrices (e.g., Sleep Duration vs. Emotional Well-being).</li>
-            <li>Identifies day-of-week drop-off anomalies (e.g., weekend habit completion drop rates).</li>
-            <li>Renders multidimensional radar charts visualizing life balance symmetries.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Pearson Correlation <em>(r)</em>:</strong> Calculates statistical correlation between lifestyle metrics (sleep/screen time) and mood scores.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Day-of-Week Clustering:</strong> Surfaces weekly emotional dips, stress spikes, and habit drop-off patterns.</li>
+            <li style="margin-bottom: 0.02in;"><strong>Counterfactual Habit Deltas:</strong> Compares 8-domain "Wheel of Life" scores on days habits are completed vs. skipped.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">
-          <span class="icon-pill" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">🛡️</span>
+      <div class="card" style="padding: 0.22in 0.26in;">
+        <div class="card-title" style="margin-bottom: 0.08in; font-size: 0.2in;">
+          <span class="icon-pill" style="width: 0.3in; height: 0.3in; background: rgba(59, 130, 246, 0.2); color: #60a5fa;">🛡️</span>
           Robust Session & Token Rotation
         </div>
-        <div class="card-body">
+        <div class="card-body" style="font-size: 0.155in;">
           <ul class="bullet-list">
-            <li>Dual-token architecture: Short-lived access token (15 min) + Refresh token (7 days).</li>
-            <li>Stored in <code>httpOnly</code>, <code>SameSite: Lax</code> cookies preventing XSS-based token theft.</li>
-            <li>Automatic token rotation with token reuse detection and multi-device session pruning.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Dual-Token Auth:</strong> Short-lived access token (15 min) paired with 7-day refresh token rotation.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Cookie Hardening:</strong> Stored in <code>httpOnly</code>, <code>SameSite: Lax</code> cookies preventing client-side script theft (XSS).</li>
+            <li style="margin-bottom: 0.02in;"><strong>Multi-Device Pruning:</strong> Active device tracking with automated token reuse detection and instant session revocation.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">
-          <span class="icon-pill" style="background: rgba(236, 72, 153, 0.2); color: #f472b6;">🔔</span>
+      <div class="card" style="padding: 0.22in 0.26in;">
+        <div class="card-title" style="margin-bottom: 0.08in; font-size: 0.2in;">
+          <span class="icon-pill" style="width: 0.3in; height: 0.3in; background: rgba(236, 72, 153, 0.2); color: #f472b6;">🔔</span>
           VAPID Web Push & Mobile PWA
         </div>
-        <div class="card-body">
+        <div class="card-body" style="font-size: 0.155in;">
           <ul class="bullet-list">
-            <li>Voluntary Application Server Identification (VAPID) push messaging without proprietary SDKs.</li>
-            <li>Progressive Web App (PWA) with installable standalone manifestation and custom splash screen.</li>
-            <li>Service Worker precaching of critical runtime chunks for offline continuity.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Standards-Based VAPID:</strong> Direct RFC 8291/8292 web-push protocol implementation with zero proprietary SDKs.</li>
+            <li style="margin-bottom: 0.08in;"><strong>Installable Standalone PWA:</strong> Native full-screen mobile app shell with custom splash screen and offline service worker.</li>
+            <li style="margin-bottom: 0.02in;"><strong>Automated Dead-Endpoint Purging:</strong> Background scheduler prunes expired subscriptions upon receiving HTTP 410.</li>
           </ul>
         </div>
       </div>
@@ -679,11 +965,11 @@
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 5 / 8</div>
+    <div class="slide-num">Slide 6 / 9</div>
   </div>
 </div>
 
-<!-- SLIDE 6: TECH STACK -->
+<!-- SLIDE 7: TECH STACK -->
 <div class="slide">
   <div class="slide-header">
     <div class="header-left">
@@ -746,11 +1032,11 @@
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 6 / 8</div>
+    <div class="slide-num">Slide 7 / 9</div>
   </div>
 </div>
 
-<!-- SLIDE 7: RESULTS & VERIFICATION -->
+<!-- SLIDE 8: RESULTS & VERIFICATION -->
 <div class="slide">
   <div class="slide-header">
     <div class="header-left">
@@ -796,11 +1082,11 @@
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 7 / 8</div>
+    <div class="slide-num">Slide 8 / 9</div>
   </div>
 </div>
 
-<!-- SLIDE 8: CONCLUSION & FUTURE SCOPE -->
+<!-- SLIDE 9: CONCLUSION & FUTURE SCOPE -->
 <div class="slide">
   <div class="slide-header">
     <div class="header-left">
@@ -843,15 +1129,14 @@
 
     <div style="text-align: center; padding: 0.18in 0.3in; background: rgba(255, 255, 255, 0.02); border-radius: 0.12in; border: 1px dashed rgba(255, 255, 255, 0.1);">
       <h3 style="font-size: 0.26in; font-weight: 800; color: #ffffff; margin-bottom: 0.05in;">Thank You</h3>
-      <p style="font-size: 0.14in; color: #cbd5e1; margin-bottom: 0.03in;">Project Supervisor: <strong>Dr. Amit Kumar Khaskalam</strong></p>
-      <p style="font-size: 0.13in; color: #94a3b8;">Students: Brijesh Kumar (23036115) • Narendra (23036134) • Suraj Biswas (23036168)</p>
+      <p style="font-size: 0.13in; color: #94a3b8;">Brijesh Kumar • Narendra  • Suraj Biswas </p>
       <p style="font-size: 0.12in; color: #64748b; margin-top: 0.03in;">Department of Information Technology | Guru Ghasidas Vishwavidyalaya, Bilaspur (C.G.)</p>
     </div>
   </div>
 
   <div class="slide-footer">
     <div class="uni-info">ManologAI: Personal Life Analytics Platform | Guru Ghasidas Vishwavidyalaya</div>
-    <div class="slide-num">Slide 8 / 8</div>
+    <div class="slide-num">Slide 9 / 9</div>
   </div>
 </div>
 

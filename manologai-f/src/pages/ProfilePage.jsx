@@ -585,6 +585,8 @@ export default function ProfilePage() {
     type: null,
     message: ""
   });
+  const [isSeedingData, setIsSeedingData] = useState(false);
+  const [seedFeedback, setSeedFeedback] = useState(null);
 
 
   const [reminders, setReminders] = useState({
@@ -828,6 +830,25 @@ export default function ProfilePage() {
       });
     } finally {
       setIsResetting(false);
+    }
+  };
+
+  const handleSeedSampleData = async () => {
+    setIsSeedingData(true);
+    setSeedFeedback(null);
+    try {
+      await api.post("/profile/seed-sample-data");
+      setSeedFeedback({
+        type: "success",
+        message: "Default sample data loaded! 45 days of telemetry, habits, timetable, and journal entries are populated."
+      });
+    } catch (err) {
+      setSeedFeedback({
+        type: "error",
+        message: getApiErrorMessage(err, "Failed to populate sample data")
+      });
+    } finally {
+      setIsSeedingData(false);
     }
   };
 
@@ -1800,7 +1821,47 @@ export default function ProfilePage() {
                 </Button>
               </motion.div>
 
-              {}
+              {/* Sample Data Seeder Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}>
+                
+                <Card className="border-indigo-500/20 bg-indigo-950/10 backdrop-blur-3xl overflow-hidden">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-indigo-400 flex items-center gap-2 text-base">
+                      <Sparkles className="h-5 w-5" /> Default Sample &amp; Demo Data
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Populate 45 days of rich, interconnected telemetry (sleep, screen time, work/study, expenses, emotions, life ratings, habits, timetable, and journal entries) so graphs and heatmaps are never empty.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {seedFeedback && (
+                      <div
+                        className={`text-xs p-3 rounded-xl border ${
+                          seedFeedback.type === "success"
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                            : "border-rose-500/30 bg-rose-500/10 text-rose-300"
+                        }`}
+                      >
+                        {seedFeedback.message}
+                      </div>
+                    )}
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={handleSeedSampleData}
+                      disabled={isSeedingData}
+                      className="w-full h-12 border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 hover:text-indigo-200 hover:border-indigo-500/50 rounded-xl transition-all font-semibold"
+                    >
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      {isSeedingData ? "Populating Data..." : "Load / Reset Default Sample Data"}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ManologAI - Data Flow Diagram (DFD Level 1)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #090d16;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #e2e8f0;
+    width: 2400px;
+    height: 1550px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .title-text { font-size: 32px; font-weight: 800; fill: #ffffff; letter-spacing: -0.5px; }
+  .subtitle-text { font-size: 15px; font-weight: 500; fill: #94a3b8; }
+  .badge-academic { font-size: 12px; font-weight: 700; fill: #818cf8; font-family: 'JetBrains Mono', monospace; }
+  
+  /* Entity Styles */
+  .entity-box { fill: #131b2e; stroke: #6366f1; stroke-width: 2.5; rx: 14; filter: drop-shadow(0 8px 24px rgba(99,102,241,0.25)); }
+  .entity-header { font-size: 17px; font-weight: 800; fill: #ffffff; }
+  .entity-sub { font-size: 13px; font-weight: 500; fill: #a5b4fc; }
+  
+  /* Process Styles */
+  .process-box { fill: #0f172a; stroke-width: 2.5; rx: 18; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.5)); }
+  .p-auth { stroke: #ec4899; }
+  .p-gate { stroke: #f59e0b; }
+  .p-ingest { stroke: #3b82f6; }
+  .p-analytics { stroke: #a855f7; }
+  .p-push { stroke: #10b981; }
+  .p-organise { stroke: #06b6d4; }
+  
+  .proc-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 800; }
+  .proc-title { font-size: 16.5px; font-weight: 700; fill: #ffffff; }
+  .proc-desc { font-size: 12px; fill: #94a3b8; }
+  
+  /* Data Store Styles */
+  .datastore-bg { fill: #0d1527; stroke: #38bdf8; stroke-width: 2; rx: 8; }
+  .datastore-bar { fill: #38bdf8; }
+  .ds-id { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 800; fill: #38bdf8; }
+  .ds-title { font-size: 14px; font-weight: 700; fill: #f8fafc; }
+  .ds-fields { font-size: 11px; fill: #64748b; font-family: 'JetBrains Mono', monospace; }
+  
+  /* Flows */
+  .flow-line { fill: none; stroke-width: 2.2; stroke-linecap: round; }
+  .flow-label { font-size: 11px; font-weight: 600; fill: #cbd5e1; font-family: 'Inter', sans-serif; }
+  .flow-label-bg { fill: #090d16; rx: 4; stroke: rgba(255,255,255,0.15); stroke-width: 1; }
+  
+  /* Legend & Notes */
+  .legend-box { fill: #0f172a; stroke: #334155; stroke-width: 1.5; rx: 12; }
+</style>
+</head>
+<body>
+
+<svg viewBox="0 0 2350 1490" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#818cf8"/>
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f472b6"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#22d3ee"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== TOP BANNER / ACADEMIC HEADER ==================== -->
+  <g id="header" transform="translate(40, 20)">
+    <rect width="2270" height="90" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <text x="30" y="42" class="title-text">ManologAI — Level-1 Data Flow Diagram (DFD)</text>
+    <text x="30" y="70" class="subtitle-text">Unified Personal Life Analytics Platform &amp; Behavioral Insight Engine • High-Resolution Dataflow Pipeline</text>
+    <text x="2240" y="42" text-anchor="end" class="badge-academic">GURU GHASIDAS VISHWAVIDYALAYA (A CENTRAL UNIVERSITY)</text>
+    <text x="2240" y="68" text-anchor="end" font-size="13px" fill="#94a3b8">B.Tech IT Sem 7 (2026-27) • Supervisor: Dr. Amit Kumar Khaskalam • Team: Brijesh (23036115), Narendra (23036134), Suraj (23036168)</text>
+  </g>
+
+  <!-- ==================== EXTERNAL ENTITY 1: USER ==================== -->
+  <g id="entity-user" transform="translate(40, 160)">
+    <rect width="260" height="970" class="entity-box"/>
+    <rect x="0" y="0" width="260" height="55" rx="14" fill="#312e81"/>
+    <rect x="0" y="40" width="260" height="15" fill="#312e81"/>
+    <text x="25" y="34" class="entity-header">E1: User (Client PWA)</text>
+    <text x="25" y="78" class="entity-sub">Frontend Presentation Tier</text>
+    <text x="25" y="100" font-size="12px" fill="#94a3b8">React 19 • Vite 8 • Tailwind v4 • PWA</text>
+    
+    <g transform="translate(20, 120)">
+      <rect width="220" height="800" rx="10" fill="#0b1120" stroke="#1e293b"/>
+      <text x="15" y="30" font-size="13px" font-weight="700" fill="#818cf8">User Interaction Subsystems:</text>
+      
+      <!-- Subsystem 1 -->
+      <circle cx="20" cy="65" r="4" fill="#ec4899"/>
+      <text x="32" y="70" font-size="12px" font-weight="600" fill="#f1f5f9">1. Auth &amp; Profile Setup</text>
+      <text x="32" y="88" font-size="11px" fill="#64748b">Signup, Login, Push Permission</text>
+      
+      <!-- Subsystem 2 -->
+      <circle cx="20" cy="130" r="4" fill="#f59e0b"/>
+      <text x="32" y="135" font-size="12px" font-weight="600" fill="#f1f5f9">2. Daily Journaling</text>
+      <text x="32" y="153" font-size="11px" fill="#64748b">Reflective text, 0-10 score, tags</text>
+      
+      <!-- Subsystem 3 -->
+      <circle cx="20" cy="195" r="4" fill="#38bdf8"/>
+      <text x="32" y="200" font-size="12px" font-weight="600" fill="#f1f5f9">3. Emotion Check-in</text>
+      <text x="32" y="218" font-size="11px" fill="#64748b">8 Quantized states (1.0-5.0)</text>
+      
+      <!-- Subsystem 4 -->
+      <circle cx="20" cy="260" r="4" fill="#34d399"/>
+      <text x="32" y="265" font-size="12px" font-weight="600" fill="#f1f5f9">4. Time &amp; Expenses</text>
+      <text x="32" y="283" font-size="11px" fill="#64748b">Sleep, Screen, Work (sum &le; 24h)</text>
+      
+      <!-- Subsystem 5 -->
+      <circle cx="20" cy="325" r="4" fill="#a855f7"/>
+      <text x="32" y="330" font-size="12px" font-weight="600" fill="#f1f5f9">5. Habit Building &amp; Streaks</text>
+      <text x="32" y="348" font-size="11px" fill="#64748b">Daily / Weekly schedule check-offs</text>
+      
+      <!-- Subsystem 6 -->
+      <circle cx="20" cy="390" r="4" fill="#f472b6"/>
+      <text x="32" y="395" font-size="12px" font-weight="600" fill="#f1f5f9">6. Wheel of Life Evaluation</text>
+      <text x="32" y="413" font-size="11px" fill="#64748b">8 life dimension rating sliders</text>
+      
+      <!-- Subsystem 7 -->
+      <circle cx="20" cy="455" r="4" fill="#06b6d4"/>
+      <text x="32" y="460" font-size="12px" font-weight="600" fill="#f1f5f9">7. Pads &amp; Timetable Planner</text>
+      <text x="32" y="478" font-size="11px" fill="#64748b">Goals, books, conflict checking</text>
+
+      <!-- Subsystem 8 -->
+      <circle cx="20" cy="520" r="4" fill="#fbbf24"/>
+      <text x="32" y="525" font-size="12px" font-weight="600" fill="#f1f5f9">8. Visual Analytics Portal</text>
+      <text x="32" y="543" font-size="11px" fill="#64748b">Recharts scatter, radar, &amp; Pearson r</text>
+
+      <!-- Subsystem 9 -->
+      <circle cx="20" cy="585" r="4" fill="#4ade80"/>
+      <text x="32" y="590" font-size="12px" font-weight="600" fill="#f1f5f9">9. Service Worker Wakeup</text>
+      <text x="32" y="608" font-size="11px" fill="#64748b">Background Push notification receiver</text>
+
+      <line x1="15" y1="640" x2="205" y2="640" stroke="#1e293b"/>
+      <text x="15" y="665" font-size="11px" font-weight="700" fill="#64748b">SECURITY CLIENT CONTEXT:</text>
+      <text x="15" y="685" font-size="11px" fill="#94a3b8">• HttpOnly JWT Bearer Cookie</text>
+      <text x="15" y="703" font-size="11px" fill="#94a3b8">• Auto-refresh on 401 Unauthorized</text>
+      <text x="15" y="721" font-size="11px" fill="#94a3b8">• Client-side encrypted PDF Export</text>
+      <text x="15" y="739" font-size="11px" fill="#94a3b8">• Offline Workbox runtime caching</text>
+    </g>
+  </g>
+
+  <!-- ==================== PROCESS COLUMN 1 (P1, P2, P4) ==================== -->
+  
+  <!-- P1.0: Auth & Session Manager -->
+  <g id="p1" transform="translate(440, 160)">
+    <rect width="370" height="210" class="process-box p-auth"/>
+    <text x="24" y="38" class="proc-num" fill="#ec4899">PROCESS 1.0</text>
+    <text x="24" y="68" class="proc-title">Authentication &amp; Session Manager</text>
+    <text x="24" y="94" class="proc-desc">• Bcrypt password hashing (10 salt rounds)</text>
+    <text x="24" y="114" class="proc-desc">• Dual-Token issuance (15m Access + 7d Refresh)</text>
+    <text x="24" y="134" class="proc-desc">• Multi-device session tracking &amp; pruning</text>
+    <text x="24" y="154" class="proc-desc">• Country-currency mapping (currency.js)</text>
+    <text x="24" y="174" class="proc-desc">• Multipart profile avatar stream to Cloudinary</text>
+    <text x="24" y="194" class="proc-desc">• Cookie credentials hardening (SameSite: Lax)</text>
+  </g>
+
+  <!-- P2.0: 24-Hour Temporal Integrity Gate -->
+  <g id="p2" transform="translate(440, 460)">
+    <rect width="370" height="230" class="process-box p-gate"/>
+    <text x="24" y="38" class="proc-num" fill="#f59e0b">PROCESS 2.0</text>
+    <text x="24" y="68" class="proc-title">24-Hour Temporal Integrity Gate</text>
+    <text x="24" y="92" class="proc-desc">• Validates: EntryDate &le; Today (Local Midnight)</text>
+    <text x="24" y="112" class="proc-desc">• Rejects future-dated submissions (HTTP 400)</text>
+    <text x="24" y="132" class="proc-desc">• Checks 24h Lock Threshold (lockedUntil &gt; now)</text>
+    <text x="24" y="152" class="proc-desc">• Enforces diurnal hour constraints (&Sigma; &le; 24h)</text>
+    <text x="24" y="172" class="proc-desc">• Sanitizes numerical boundaries (ratings 0-10)</text>
+    <text x="24" y="192" class="proc-desc">• Prevents retroactive streak/history falsification</text>
+    <text x="24" y="212" font-size="11.5px" font-weight="700" fill="#fbbf24">Guarantees pristine, unpolluted datasets</text>
+  </g>
+
+  <!-- P4.0: Behavioral Intelligence & Statistical Analytics Engine -->
+  <g id="p4" transform="translate(440, 780)">
+    <rect width="370" height="260" class="process-box p-analytics"/>
+    <text x="24" y="38" class="proc-num" fill="#a855f7">PROCESS 4.0</text>
+    <text x="24" y="68" class="proc-title">Behavioral Intelligence &amp; Analytics</text>
+    <text x="24" y="92" class="proc-desc">• Sliding temporal window range queries (7d, 30d, 90d)</text>
+    <text x="24" y="112" class="proc-desc">• Pearson Correlation Engine: computes r(sleep/screen, mood)</text>
+    <text x="24" y="132" class="proc-desc">• Percentile bandwidth slicing (Upper vs Lower 30%)</text>
+    <text x="24" y="152" class="proc-desc">• Counterfactual Habit Impact: &Delta; = Mean(With) - Mean(Without)</text>
+    <text x="24" y="172" class="proc-desc">• Noise filtration: N &ge; 2, |&Delta;| &ge; 1.0 against historical baseline</text>
+    <text x="24" y="192" class="proc-desc">• Day-of-week emotion pattern clustering (Mon-Sun dips)</text>
+    <text x="24" y="212" class="proc-desc">• Synthesizes natural-language diagnostic feedback</text>
+    <text x="24" y="234" font-size="11.5px" font-weight="700" fill="#c084fc">Outputs structured Recharts vector telemetry</text>
+  </g>
+
+
+  <!-- ==================== PROCESS COLUMN 2 (P5, P3, P6) ==================== -->
+
+  <!-- P5.0: Proactive VAPID Push Notification Daemon -->
+  <g id="p5" transform="translate(960, 160)">
+    <rect width="380" height="210" class="process-box p-push"/>
+    <text x="24" y="38" class="proc-num" fill="#10b981">PROCESS 5.0</text>
+    <text x="24" y="68" class="proc-title">Proactive Web-Push Daemon</text>
+    <text x="24" y="94" class="proc-desc">• 60-second Node.js background cron scheduler</text>
+    <text x="24" y="114" class="proc-desc">• Compares current UTC time with reminderSettings</text>
+    <text x="24" y="134" class="proc-desc">• Signs payload with VAPID Private Key (RFC 8292)</text>
+    <text x="24" y="154" class="proc-desc">• Delivers ECDSA P-256 encrypted push payloads</text>
+    <text x="24" y="174" class="proc-desc">• Prunes dead endpoints on HTTP 410 Gone / 404</text>
+    <text x="24" y="194" class="proc-desc">• Manages multi-subscription fanout per user</text>
+  </g>
+
+  <!-- P3.0: Daily Telemetry & Habit Ingestion Engine -->
+  <g id="p3" transform="translate(960, 460)">
+    <rect width="380" height="230" class="process-box p-ingest"/>
+    <text x="24" y="38" class="proc-num" fill="#3b82f6">PROCESS 3.0</text>
+    <text x="24" y="68" class="proc-title">Telemetry &amp; Habit Ingestion Engine</text>
+    <text x="24" y="92" class="proc-desc">• Atomic MongoDB upsert on { user: 1, date: 1 }</text>
+    <text x="24" y="112" class="proc-desc">• Quantizes emotion strings into valence [1.0-5.0]</text>
+    <text x="24" y="132" class="proc-desc">• Dynamic Habit Streak calculation (current/longest)</text>
+    <text x="24" y="152" class="proc-desc">• Evaluates custom schedules (Daily, Weekly, Days)</text>
+    <text x="24" y="172" class="proc-desc">• Computes Habit score %: &Sigma;Completed / &Sigma;Scheduled</text>
+    <text x="24" y="192" class="proc-desc">• Awards Gamified Badges (Bronze, Silver, Gold, Diamond)</text>
+    <text x="24" y="212" class="proc-desc">• Stores 8-Domain Wheel of Life satisfaction vectors</text>
+  </g>
+
+  <!-- P6.0: Workspace Organisation & Timetable Collision Detector -->
+  <g id="p6" transform="translate(960, 780)">
+    <rect width="380" height="260" class="process-box p-organise"/>
+    <text x="24" y="38" class="proc-num" fill="#06b6d4">PROCESS 6.0</text>
+    <text x="24" y="68" class="proc-title">Workspace &amp; Timetable Planner</text>
+    <text x="24" y="94" class="proc-desc">• Pad workspaces (Goals, Books, Ideas, To-Dos)</text>
+    <text x="24" y="114" class="proc-desc">• Task completion state &amp; progress accounting</text>
+    <text x="24" y="134" class="proc-desc">• Weekly schedule grid manager (Mon-Sun)</text>
+    <text x="24" y="154" class="proc-desc">• Real-time block overlap &amp; collision detection</text>
+    <text x="24" y="174" class="proc-desc">• Timetable activity grouping and color tagging</text>
+    <text x="24" y="194" class="proc-desc">• Syncs pad checklists with daily dashboard</text>
+  </g>
+
+
+  <!-- ==================== DATA STORES COLUMN (D1 to D7) ==================== -->
+  
+  <!-- D1: Users -->
+  <g id="d1" transform="translate(1480, 160)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D1</text>
+    <text x="60" y="28" class="ds-title">Users &amp; Credentials Store (users)</text>
+    <text x="22" y="52" class="ds-fields">_id, email, passwordHash, firstName, currency, sessions[],</text>
+    <text x="22" y="70" class="ds-fields">pushSubscriptions[], reminderSettings{}, goals{}, isDeleted</text>
+  </g>
+
+  <!-- D2: Daily Entries -->
+  <g id="d2" transform="translate(1480, 280)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D2</text>
+    <text x="60" y="28" class="ds-title">Daily Journal Store (dailyentries)</text>
+    <text x="22" y="52" class="ds-fields">_id, user [ref], date, text, rating (0-10), tags[],</text>
+    <text x="22" y="70" class="ds-fields">lockedUntil, createdAt • Index: { user: 1, date: 1 } (unique)</text>
+  </g>
+
+  <!-- D3: Emotions -->
+  <g id="d3" transform="translate(1480, 400)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D3</text>
+    <text x="60" y="28" class="ds-title">Emotion Telemetry (emotions)</text>
+    <text x="22" y="52" class="ds-fields">_id, user [ref], date, emotion (8-enum), lockedUntil,</text>
+    <text x="22" y="70" class="ds-fields">createdAt, updatedAt • Index: { user: 1, date: 1 } (unique)</text>
+  </g>
+
+  <!-- D4: Time Tracker -->
+  <g id="d4" transform="translate(1480, 520)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D4</text>
+    <text x="60" y="28" class="ds-title">Time &amp; Expense Telemetry (timetrackers)</text>
+    <text x="22" y="52" class="ds-fields">_id, user [ref], date, sleep, screen, workStudy, expense,</text>
+    <text x="22" y="70" class="ds-fields">locked, createdAt • Index: { user: 1, date: 1 } (unique)</text>
+  </g>
+
+  <!-- D5: Habits -->
+  <g id="d5" transform="translate(1480, 640)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D5</text>
+    <text x="60" y="28" class="ds-title">Habits &amp; Streaks Datastore (habits)</text>
+    <text x="22" y="52" class="ds-fields">_id, user [ref], name, frequency, customDays[],</text>
+    <text x="22" y="70" class="ds-fields">currentStreak, longestStreak, history [{ date, completed }]</text>
+  </g>
+
+  <!-- D6: Life Ratings -->
+  <g id="d6" transform="translate(1480, 760)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D6</text>
+    <text x="60" y="28" class="ds-title">Wheel of Life Datastore (liferatings)</text>
+    <text x="22" y="52" class="ds-fields">_id, user [ref], date, ratings { partner, family, health,</text>
+    <text x="22" y="70" class="ds-fields">finances, career, env, fun, growth } • Index: { user: 1, date: 1 }</text>
+  </g>
+
+  <!-- D7: Pads & Timetables -->
+  <g id="d7" transform="translate(1480, 880)">
+    <rect width="380" height="85" class="datastore-bg"/>
+    <rect x="0" y="0" width="10" height="85" class="datastore-bar"/>
+    <text x="22" y="28" class="ds-id">D7</text>
+    <text x="60" y="28" class="ds-title">Workspace &amp; Timetable Store (pads, timetables)</text>
+    <text x="22" y="52" class="ds-fields">Pads: _id, user, padType, title, items [{ title, note, done }]</text>
+    <text x="22" y="70" class="ds-fields">Timetables: _id, user, blocks [{ day, startTime, endTime, activity }]</text>
+  </g>
+
+
+  <!-- ==================== EXTERNAL SERVICES (E2, E3) ==================== -->
+  
+  <!-- E2: OS Push Service -->
+  <g id="e2" transform="translate(1980, 180)">
+    <rect width="330" height="160" class="entity-box" style="stroke: #10b981; fill: #064e3b15;"/>
+    <rect x="0" y="0" width="330" height="45" rx="14" fill="#065f46"/>
+    <rect x="0" y="32" width="330" height="13" fill="#065f46"/>
+    <text x="22" y="28" class="entity-header">E2: OS Push Service</text>
+    <text x="22" y="68" class="entity-sub">W3C / RFC 8291 Web Push Gateway</text>
+    <text x="22" y="94" font-size="12px" fill="#cbd5e1">• Google FCM / Apple APNs / Mozilla Push</text>
+    <text x="22" y="114" font-size="12px" fill="#cbd5e1">• Cryptographic payload relay to device</text>
+    <text x="22" y="134" font-size="12px" fill="#a7f3d0">• Delivers alert to device lockscreen</text>
+  </g>
+
+  <!-- E3: Cloudinary CDN -->
+  <g id="e3" transform="translate(1980, 480)">
+    <rect width="330" height="160" class="entity-box" style="stroke: #38bdf8; fill: #0c4a6e15;"/>
+    <rect x="0" y="0" width="330" height="45" rx="14" fill="#0369a1"/>
+    <rect x="0" y="32" width="330" height="13" fill="#0369a1"/>
+    <text x="22" y="28" class="entity-header">E3: Cloudinary CDN</text>
+    <text x="22" y="68" class="entity-sub">Cloud Media &amp; Asset Management</text>
+    <text x="22" y="94" font-size="12px" fill="#cbd5e1">• Multipart image stream ingestion</text>
+    <text x="22" y="114" font-size="12px" fill="#cbd5e1">• Crop, compression &amp; thumbnailing</text>
+    <text x="22" y="134" font-size="12px" fill="#bae6fd">• High-availability profile avatar delivery</text>
+  </g>
+
+
+  <!-- ==================== FLOW CONNECTORS & DATA PIPELINES ==================== -->
+  
+  <!-- Flow 1: E1 -> P1 (Credentials) -->
+  <path d="M 300 220 L 440 220" class="flow-line" stroke="#ec4899" marker-end="url(#arrow-pink)"/>
+  <rect x="325" y="204" width="85" height="18" class="flow-label-bg"/>
+  <text x="330" y="217" class="flow-label" fill="#f472b6">Credentials</text>
+
+  <!-- Flow 1b: P1 -> E1 (JWT Cookies) -->
+  <path d="M 440 260 L 300 260" class="flow-line" stroke="#818cf8" marker-end="url(#arrow-indigo)"/>
+  <rect x="325" y="244" width="85" height="18" class="flow-label-bg"/>
+  <text x="330" y="257" class="flow-label" fill="#818cf8">JWT Cookies</text>
+
+  <!-- Flow 1c: Overhead Bus from P1 to D1 (User & Session Records) -->
+  <path d="M 620 160 L 620 130 L 1670 130 L 1670 160" class="flow-line" stroke="#ec4899" marker-end="url(#arrow-pink)"/>
+  <rect x="990" y="120" width="160" height="18" class="flow-label-bg"/>
+  <text x="995" y="133" class="flow-label" fill="#f472b6">User &amp; Session Records</text>
+
+  <!-- Flow 1d: Overhead Bus from P1 to E3 (Avatar Multipart) -->
+  <path d="M 680 160 L 680 115 L 2140 115 L 2140 480" class="flow-line" stroke="#38bdf8" marker-end="url(#arrow-cyan)"/>
+  <rect x="1270" y="105" width="150" height="18" class="flow-label-bg"/>
+  <text x="1275" y="118" class="flow-label" fill="#38bdf8">Multipart Avatar Stream</text>
+
+  <!-- Flow 2: E1 -> P2 (Daily Submissions) -->
+  <path d="M 300 540 L 440 540" class="flow-line" stroke="#fbbf24" marker-end="url(#arrow-amber)"/>
+  <rect x="320" y="524" width="100" height="18" class="flow-label-bg"/>
+  <text x="325" y="537" class="flow-label" fill="#fbbf24">Daily Check-ins</text>
+
+  <!-- Flow 3: P2 -> P3 (Sanitized & Verified Stream) -->
+  <path d="M 810 560 L 960 560" class="flow-line" stroke="#60a5fa" marker-end="url(#arrow-blue)"/>
+  <rect x="825" y="544" width="120" height="18" class="flow-label-bg"/>
+  <text x="830" y="557" class="flow-label" fill="#60a5fa">Sanitized Payload</text>
+
+  <!-- Flow 3 to Datastores D2, D3, D4, D5, D6 from P3 -->
+  <!-- P3 -> D2 (Diary) -->
+  <path d="M 1340 490 Q 1410 325 1480 325" class="flow-line" stroke="#3b82f6" marker-end="url(#arrow-blue)"/>
+  <rect x="1380" y="380" width="75" height="18" class="flow-label-bg"/>
+  <text x="1385" y="393" class="flow-label" fill="#93c5fd">Diary Text</text>
+
+  <!-- P3 -> D3 (Emotions) -->
+  <path d="M 1340 530 Q 1410 445 1480 445" class="flow-line" stroke="#3b82f6" marker-end="url(#arrow-blue)"/>
+  <rect x="1375" y="475" width="90" height="18" class="flow-label-bg"/>
+  <text x="1380" y="488" class="flow-label" fill="#93c5fd">Emotion [1-5]</text>
+
+  <!-- P3 -> D4 (Time) -->
+  <path d="M 1340 575 L 1480 565" class="flow-line" stroke="#3b82f6" marker-end="url(#arrow-blue)"/>
+  <rect x="1370" y="560" width="100" height="18" class="flow-label-bg"/>
+  <text x="1375" y="573" class="flow-label" fill="#93c5fd">Hours &amp; Expense</text>
+
+  <!-- P3 -> D5 (Habits) -->
+  <path d="M 1340 620 Q 1410 680 1480 680" class="flow-line" stroke="#3b82f6" marker-end="url(#arrow-blue)"/>
+  <rect x="1375" y="650" width="90" height="18" class="flow-label-bg"/>
+  <text x="1380" y="663" class="flow-label" fill="#93c5fd">Habit History</text>
+
+  <!-- P3 -> D6 (Life Ratings) -->
+  <path d="M 1340 660 Q 1410 795 1480 795" class="flow-line" stroke="#3b82f6" marker-end="url(#arrow-blue)"/>
+  <rect x="1375" y="735" width="90" height="18" class="flow-label-bg"/>
+  <text x="1380" y="748" class="flow-label" fill="#93c5fd">Wheel Ratings</text>
+
+  <!-- Flow 4: Analytical Pipeline directly between E1 and P4 -->
+  <!-- E1 -> P4 (Query Window) -->
+  <path d="M 300 850 L 440 850" class="flow-line" stroke="#a855f7" marker-end="url(#arrow-purple)"/>
+  <rect x="315" y="834" width="115" height="18" class="flow-label-bg"/>
+  <text x="320" y="847" class="flow-label" fill="#d8b4fe">Query (7/30/90d)</text>
+
+  <!-- P4 -> E1 (Computed Insights & SVG data) -->
+  <path d="M 440 910 L 300 910" class="flow-line" stroke="#c084fc" marker-end="url(#arrow-purple)"/>
+  <rect x="315" y="894" width="115" height="18" class="flow-label-bg"/>
+  <text x="320" y="907" class="flow-label" fill="#c084fc">Pearson r &amp; Insights</text>
+
+  <!-- Datastores (D2..D6) -> P4 (Read Telemetry via lower bus) -->
+  <path d="M 1480 825 Q 890 825 810 880" class="flow-line" stroke="#a855f7" stroke-dasharray="4,4" marker-end="url(#arrow-purple)"/>
+  <rect x="850" y="840" width="145" height="18" class="flow-label-bg"/>
+  <text x="855" y="853" class="flow-label" fill="#d8b4fe">Longitudinal Telemetry</text>
+
+  <!-- Flow 5: Push Pipeline -->
+  <!-- D1 -> P5 (Reminder Settings & Push Keys) -->
+  <path d="M 1480 205 L 1340 205" class="flow-line" stroke="#10b981" marker-end="url(#arrow-green)"/>
+  <rect x="1355" y="190" width="110" height="18" class="flow-label-bg"/>
+  <text x="1360" y="203" class="flow-label" fill="#6ee7b7">Push Key &amp; Alerts</text>
+
+  <!-- P5 -> E2 (VAPID payload) -->
+  <path d="M 1340 250 L 1980 250" class="flow-line" stroke="#10b981" stroke-dasharray="5,5" marker-end="url(#arrow-green)"/>
+  <rect x="1600" y="235" width="165" height="18" class="flow-label-bg"/>
+  <text x="1605" y="248" class="flow-label" fill="#6ee7b7">RFC 8291 Web-Push Payload</text>
+
+  <!-- E2 -> E1 (Notification Event to Device via clear bottom corridor) -->
+  <path d="M 2140 340 L 2140 1140 L 170 1140 L 170 1130" class="flow-line" stroke="#10b981" stroke-dasharray="6,6" marker-end="url(#arrow-green)"/>
+  <rect x="1080" y="1130" width="180" height="18" class="flow-label-bg"/>
+  <text x="1085" y="1143" class="flow-label" fill="#6ee7b7">Lockscreen Push Alert Delivery</text>
+
+  <!-- Flow 6: Workspace & Timetable -->
+  <!-- E1 -> P6 (Pads & Timetable) -->
+  <path d="M 300 715 L 960 840" class="flow-line" stroke="#06b6d4" marker-end="url(#arrow-cyan)"/>
+  <rect x="580" y="730" width="130" height="18" class="flow-label-bg"/>
+  <text x="585" y="743" class="flow-label" fill="#67e8f9">Pads &amp; Schedule Blocks</text>
+
+  <!-- P6 -> D7 (Persist Pads & Blocks) -->
+  <path d="M 1340 920 L 1480 920" class="flow-line" stroke="#06b6d4" marker-end="url(#arrow-cyan)"/>
+  <rect x="1350" y="905" width="115" height="18" class="flow-label-bg"/>
+  <text x="1355" y="918" class="flow-label" fill="#67e8f9">Pads &amp; Timetable</text>
+
+
+  <!-- ==================== BOTTOM LEGEND & FORMULAS ==================== -->
+  <g id="bottom-bar" transform="translate(40, 1170)">
+    <rect width="2270" height="280" class="legend-box"/>
+    
+    <!-- Legend Items -->
+    <g transform="translate(30, 25)">
+      <text x="0" y="0" font-size="16px" font-weight="800" fill="#ffffff">DFD NOTATION LEGEND (Gane &amp; Sarson / Yourdon Standards)</text>
+      
+      <!-- Symbol 1: External Entity -->
+      <g transform="translate(0, 20)">
+        <rect width="130" height="42" fill="#131b2e" stroke="#6366f1" stroke-width="2" rx="6"/>
+        <text x="65" y="26" text-anchor="middle" font-size="12px" font-weight="700" fill="#ffffff">External Entity</text>
+        <text x="145" y="25" font-size="12px" fill="#94a3b8">Source or destination of data outside the system boundary (e.g. User, OS Push Service, Cloudinary CDN).</text>
+      </g>
+
+      <!-- Symbol 2: Process -->
+      <g transform="translate(0, 75)">
+        <rect width="130" height="42" fill="#0f172a" stroke="#a855f7" stroke-width="2" rx="12"/>
+        <text x="65" y="26" text-anchor="middle" font-size="12px" font-weight="700" fill="#ffffff">Process 1.0</text>
+        <text x="145" y="25" font-size="12px" fill="#94a3b8">Transformation of incoming data streams into modified outgoing streams via business algorithms or mathematical models.</text>
+      </g>
+
+      <!-- Symbol 3: Data Store -->
+      <g transform="translate(0, 130)">
+        <rect width="130" height="42" fill="#0d1527" stroke="#38bdf8" stroke-width="1.5" rx="4"/>
+        <rect x="0" y="0" width="8" height="42" fill="#38bdf8"/>
+        <text x="68" y="26" text-anchor="middle" font-size="12px" font-weight="700" fill="#38bdf8">D1: Data Store</text>
+        <text x="145" y="25" font-size="12px" fill="#94a3b8">Repository of persistent data at rest (MongoDB collections with compound indexed constraints).</text>
+      </g>
+
+      <!-- Symbol 4: Data Flow -->
+      <g transform="translate(0, 185)">
+        <line x1="10" y1="20" x2="110" y2="20" stroke="#f472b6" stroke-width="2.5" marker-end="url(#arrow-pink)"/>
+        <text x="145" y="25" font-size="12px" fill="#94a3b8">Directional data flow pipelines transferring structured payloads, credentials, queries, or encrypted push events.</text>
+      </g>
+    </g>
+
+    <!-- Mathematical Foundations & Integrity Rules Callout -->
+    <g transform="translate(1100, 25)">
+      <text x="0" y="0" font-size="16px" font-weight="800" fill="#ffffff">MATHEMATICAL MODELS &amp; DATA INTEGRITY ENFORCEMENT</text>
+      
+      <g transform="translate(0, 20)">
+        <rect width="1130" height="205" rx="8" fill="#0b1120" stroke="#1e293b"/>
+        
+        <g transform="translate(25, 25)">
+          <text x="0" y="0" font-size="13px" font-weight="700" fill="#c084fc">1. Pearson Correlation Coefficient (r):</text>
+          <text x="0" y="22" font-size="11.5px" font-family="'JetBrains Mono', monospace" fill="#e2e8f0">r = &Sigma;((x - x̄)(y - ȳ)) / &radic;(&Sigma;(x - x̄)&sup2; &bull; &Sigma;(y - ȳ)&sup2;)  where x &isin; {Sleep, Screen, Work}, y &isin; EmotionValence[1.0..5.0]</text>
+          <text x="0" y="40" font-size="11px" fill="#94a3b8">Evaluates linear correlation strength: |r| &ge; 0.5 (Strong), 0.3 &le; |r| &lt; 0.5 (Moderate), |r| &lt; 0.3 (Weak) with 30% upper/lower percentile band separation.</text>
+
+          <text x="0" y="70" font-size="13px" font-weight="700" fill="#38bdf8">2. Counterfactual Habit Impact Engine (&Delta;):</text>
+          <text x="0" y="92" font-size="11.5px" font-family="'JetBrains Mono', monospace" fill="#e2e8f0">&Delta; = (1/N_A &Sigma;_{d &isin; A} Rating_d) - (1/N_B &Sigma;_{d &isin; B} Rating_d)  where A = Days with Habit, B = Days without Habit</text>
+          <text x="0" y="110" font-size="11px" fill="#94a3b8">Enforces empirical noise thresholds (N_A &ge; 2, N_B &ge; 2, |&Delta;| &ge; 1.0) against historical baseline across 8 life domains.</text>
+
+          <text x="0" y="140" font-size="13px" font-weight="700" fill="#fbbf24">3. 24-Hour Temporal Integrity Lock:</text>
+          <text x="0" y="160" font-size="11px" fill="#e2e8f0">Strict API middleware blocks future timestamps (Timestamp &gt; LocalMidnight) and rejects retrofitted updates older than 24 hours.</text>
+        </g>
+      </g>
+    </g>
+
+  </g>
+
+</svg>
+
+</body>
+</html>

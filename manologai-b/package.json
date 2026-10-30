@@ -6,6 +6,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "watch": "nodemon app.js",
+    "seed": "node src/scripts/seedDefaultData.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "narendra pathak",

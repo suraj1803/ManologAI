@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const { getCurrencyForCountry } = require("../config/currency");
+const { seedUserData } = require("../services/seedDataService");
 
 const router = express.Router();
 
@@ -55,6 +56,13 @@ router.post("/signup", async (req, res) => {
         ip: req.ip || req.connection.remoteAddress
       });
       await user.save();
+
+      // Automatically seed rich default data so graphs, streaks, and heatmap aren't empty
+      try {
+        await seedUserData(user._id, { force: true });
+      } catch (seedErr) {
+        console.error("Failed to seed default data for new user:", seedErr);
+      }
 
       res.cookie("token", accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
       res.cookie("refreshToken", refreshToken, { ...cookieOptions, maxAge: 7 * 24 * 60 * 60 * 1000 });
